@@ -20,12 +20,13 @@ export default async function sitemap() {
     // DB unavailable during build — skip product URLs
   }
 
-  return [
+  // Static pages with optimized priorities and frequencies
+  const staticPages = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/shop`,
@@ -37,14 +38,34 @@ export default async function sitemap() {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
     },
-    ...productUrls,
+    // Category pages for better SEO
+    {
+      url: `${baseUrl}/shop/etomidate-powder-pure`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shop/etomidate-vape-kpod-classic`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shop/etomidate-liquid-solution-standard`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
+
+  return [...staticPages, ...productUrls];
 }

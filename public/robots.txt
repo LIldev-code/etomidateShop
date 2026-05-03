@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api
 
-Sitemap: https://buyetomidateonline.com/sitemap.xml
+Sitemap: https://buyetomidateproducts.com/sitemap.xml
