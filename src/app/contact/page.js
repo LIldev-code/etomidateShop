@@ -65,7 +65,7 @@ export default function ContactPage() {
     {
       icon: <FiPhone className="w-5 h-5" />,
       label: "Priority Line",
-      value: siteSettings.contactPhone || "+44 20 7123 4567",
+      value: siteSettings.contactPhone || "+15125922145",
       desc: "24/7 Emergency support",
       color: "from-blue-500/20 to-blue-500/5",
     },
