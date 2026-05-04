@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import { FiMail, FiPhone, FiTruck, FiClock, FiUser, FiSend, FiMessageSquare, FiLoader, FiCheckCircle, FiMapPin, FiArrowRight, FiHeadphones, FiPaperclip, FiCalendar, FiGlobe } from "react-icons/fi";
 import { BsShieldCheck, BsLightningCharge } from "react-icons/bs";
+import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ 
@@ -61,6 +62,7 @@ export default function ContactPage() {
       value: siteSettings.contactEmail || "orders@buyetomidateproducts.com",
       desc: "Response within 2 hours",
       color: "from-[#10b981]/20 to-[#10b981]/5",
+      href: `mailto:${siteSettings.contactEmail || "orders@buyetomidateproducts.com"}`,
     },
     {
       icon: <FiPhone className="w-5 h-5" />,
@@ -68,20 +70,23 @@ export default function ContactPage() {
       value: siteSettings.contactPhone || "+15125922145",
       desc: "24/7 Emergency support",
       color: "from-blue-500/20 to-blue-500/5",
+      href: `tel:${siteSettings.contactPhone || "+15125922145"}`,
     },
     {
-      icon: <FiTruck className="w-5 h-5" />,
-      label: "Express Delivery",
-      value: "All orders are shipped within 48h via tracked, discreet packaging",
-      desc: "International delivery available depending on your location",
+      icon: <FaWhatsapp className="w-5 h-5" />,
+      label: "WhatsApp",
+      value: "+5125922145",
+      desc: "Chat with us instantly",
       color: "from-green-500/20 to-green-500/5",
+      href: "https://wa.me/5125922145",
     },
     {
-      icon: <FiGlobe className="w-5 h-5" />,
-      label: "Global Network",
-      value: "International operations",
-      desc: "Serving 50+ countries",
-      color: "from-purple-500/20 to-purple-500/5",
+      icon: <FaTelegramPlane className="w-5 h-5" />,
+      label: "Telegram",
+      value: "@biggestsup",
+      desc: "Message us on Telegram",
+      color: "from-sky-500/20 to-sky-500/5",
+      href: "https://t.me/biggestsup",
     },
   ];
 
@@ -126,12 +131,15 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {contactCards.map((card, i) => (
-            <motion.div
+            <motion.a
               key={card.label}
+              href={card.href}
+              target={card.href?.startsWith("http") ? "_blank" : undefined}
+              rel={card.href?.startsWith("http") ? "noopener noreferrer" : undefined}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="group relative bg-[#111] border border-[#1e1e1e] rounded-2xl p-5 hover:border-[#10b981]/30 transition-all duration-300 cursor-default"
+              className="group relative bg-[#111] border border-[#1e1e1e] rounded-2xl p-5 hover:border-[#10b981]/30 transition-all duration-300 cursor-pointer"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${card.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               <div className="relative">
@@ -142,7 +150,7 @@ export default function ContactPage() {
                 <p className="text-sm text-[#10b981] font-medium mb-1">{card.value}</p>
                 <p className="text-xs text-gray-500">{card.desc}</p>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
