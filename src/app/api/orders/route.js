@@ -30,7 +30,9 @@ export async function POST(request) {
     });
 
     // Send email notification (non-blocking)
-    sendOrderNotification(order).catch(() => {});
+    sendOrderNotification(order).catch((err) => {
+      console.error("[ORDER EMAIL ERROR]", err.message);
+    });
 
     return NextResponse.json({ success: true, orderId: order.orderId }, { status: 201 });
   } catch (err) {
