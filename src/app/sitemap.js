@@ -46,31 +46,6 @@ export default async function sitemap() {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    // Category pages for better SEO
-    {
-      url: `${baseUrl}/shop/etomidate-powder-pure`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/shop/etomidate-vape-kpod-classic`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/shop/etomidate-liquid-solution-standard`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/shop/etomidate-flavour-grape`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
   ];
 
   return [...staticPages, ...productUrls];
