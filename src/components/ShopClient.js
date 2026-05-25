@@ -15,7 +15,7 @@ const productIcons = {
 };
 
 const categoryInfo = {
-  powder: { label: "Powder / Krystal", icon: <FaFlask className="w-5 h-5" />, heading: "Etomidate Powder / Krystal", desc: "High-purity etomidate powder for research and clinical use." },
+  powder: { label: "Powder / Crystal", icon: <FaFlask className="w-5 h-5" />, heading: "Etomidate Powder / Crystal", desc: "High-purity etomidate powder for research and clinical use." },
   vape: { label: "Vape / K-Pods", icon: <FaVial className="w-5 h-5" />, heading: "Etomidate Vape / K-Pods", desc: "Precision-formulated etomidate vape cartridges and K-Pod systems." },
   liquid: { label: "Liquid", icon: <FaTint className="w-5 h-5" />, heading: "Etomidate Liquid", desc: "Pharmaceutical-grade etomidate liquid solutions." },
   "vape flavours": { label: "Vape Flavours", icon: <FaAppleAlt className="w-5 h-5" />, heading: "Vape Flavours", desc: "Premium flavored etomidate vape products in various fruit and specialty flavors." },

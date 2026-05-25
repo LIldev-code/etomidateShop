@@ -64,7 +64,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2.5">
                 <FiMail className="w-4 h-4 text-[#00d4aa] shrink-0" />
-                orders@etomidate.com
+                orders@etomidateshop.com
               </li>
               <li className="flex items-center gap-2.5">
                 <FiPhone className="w-4 h-4 text-[#00d4aa] shrink-0" />
