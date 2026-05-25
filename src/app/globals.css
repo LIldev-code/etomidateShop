@@ -1,23 +1,20 @@
 @import "tailwindcss";
-
 :root {
-  --color-primary: #0a0a0a;
-  --color-accent: #10b981;
-  --color-accent-hover: #059669;
-  --color-surface: #0a0a0a;
-  --color-muted: #a3a3a3;
-  --gold: #10b981;
-  --gold-light: #34d399;
-  --gold-dark: #059669;
-  --dark: #0a0a0a;
-  --dark-card: #141414;
-  --dark-border: #262626;
+  --color-primary: #ffffff;           
+  --color-surface: #ffffff;          
+  --color-muted: #6b7280;            
+  --gold: #00d4aa;                   
+  --gold-light: #00d4aa;         
+  --gold-dark: #00b894;               
+  --dark: #111827;                   
+  --dark-card: #f9fafb;               
+  --dark-border: #e5e7eb;             
 }
 
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  background: var(--color-surface);
-  color: #e5e5e5;
+  background: #ffffff;    
+  color: #111827;        
 }
 
 /* Smooth scroll */
@@ -115,3 +112,67 @@ img:hover {
   user-select: none !important;
   pointer-events: none !important;
 }
+
+/* Animated gradient background for hero banner */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.hero-gradient-bg {
+  background: linear-gradient(-45deg, #0a0a0a, #1a0a2e, #0f0a1a, #1a102e);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.hero-purple-glow {
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(0, 184, 148, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(0, 212, 170, 0.08) 0%, transparent 50%);
+}
+
+.animated-blob {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animated-blob-delayed {
+  animation: float 10s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Custom carousel slide backgrounds */
+.slide-bg-1 {
+  background: linear-gradient(135deg, #0a2e2a 0%, #003d35 30%, #005a4e 60%, #004a40 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+
+.slide-bg-2 {
+  background: linear-gradient(225deg, #001a16 0%, #00302a 30%, #004a40 60%, #002e28 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite reverse;
+}
+
+.slide-bg-3 {
+  background: linear-gradient(45deg, #002e28 0%, #004a40 33%, #001a16 66%, #003d35 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+
+

@@ -13,8 +13,9 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (!MONGODB_URI) {
-    throw new Error("MONGODB_URI is not defined");
+  if (!MONGODB_URI || MONGODB_URI.includes("username:password")) {
+    console.warn("MONGODB_URI not configured — skipping database connection.");
+    return null;
   }
 
   if (cached.conn) {

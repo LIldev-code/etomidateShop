@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiShoppingBag, FiMail, FiArrowRight, FiCheckCircle, FiX, FiStar } from "react-icons/fi";
 import { HiOutlineBeaker, HiOutlineTruck, HiOutlineLightningBolt, HiOutlineGlobe, HiOutlineSparkles } from "react-icons/hi";
 import { BsShieldCheck, BsBoxSeam, BsHeadset, BsLightningCharge } from "react-icons/bs";
-import { FaFlask, FaVial, FaTint } from "react-icons/fa";
+import { FaFlask, FaVial, FaTint, FaAppleAlt } from "react-icons/fa";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProtectedImage from "@/components/ProtectedImage";
@@ -20,34 +20,32 @@ const fadeUp = {
 };
 
 const productIcons = {
-  powder: <FaFlask className="w-20 h-20 text-[#10b981]" />,
-  vape: <FaVial className="w-20 h-20 text-[#10b981]" />,
-  liquid: <FaTint className="w-20 h-20 text-[#10b981]" />,
+  powder: <FaFlask className="w-20 h-20 text-[#00d4aa]" />,
+  vape: <FaVial className="w-20 h-20 text-[#00d4aa]" />,
+  liquid: <FaTint className="w-20 h-20 text-[#00d4aa]" />,
+  flavours: <FaAppleAlt className="w-20 h-20 text-[#00d4aa]" />,
 };
 
 export default function HomeClient({ products, siteSettings = {} }) {
   const settings = siteSettings || {};
   const carouselSlides = [
     {
-      background: "/uploads/lab.webp",
-      title: "Premium Quality Compounds",
-      subtitle: "Pharmaceutical-grade products with exceptional 99.8% purity standards",
-      cta: "Shop Now",
+      title: "Your Trusted Research Partner",
+      subtitle: "Supplying verified etomidate compounds to laboratories and research facilities globally since 2020",
+      cta: "Explore Collection",
       href: "/shop",
     },
     {
-      background: "/uploads/clinical-laboratory.webp",
-      title: "Trusted Worldwide",
-      subtitle: "Laboratory-tested quality with discreet international shipping available",
-      cta: "Learn More",
+      title: "Uncompromising Purity",
+      subtitle: "Every batch HPLC-tested with Certificates of Analysis. What you order is exactly what you receive.",
+      cta: "Our Standards",
       href: "/about",
     },
     {
-      background: "/uploads/lab1.avif",
-      title: "Multiple Options",
-      subtitle: "Available in powder, vape cartridges, and liquid formulations",
-      cta: "View Products",
-      href: "/shop",
+      title: "Discretion Guaranteed",
+      subtitle: "Plain packaging, secure payment options, and confidential delivery to your doorstep worldwide",
+      cta: "How We Ship",
+      href: "/contact",
     },
   ];
   const [bannerVisible, setBannerVisible] = useState(true);
@@ -69,12 +67,12 @@ export default function HomeClient({ products, siteSettings = {} }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "BuyEtomidateProducts.com",
-    url: "https://buyetomidateproducts.com",
+    name: "EtomidateShop.com",
+    url: "https://etomidateshop.com",
     description: "Premium pharmaceutical-grade etomidate products — powder, vape & liquid solutions.",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://buyetomidateproducts.com/shop?q={search_term_string}",
+      target: "https://etomidateshop.com/shop?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   };
@@ -88,17 +86,22 @@ export default function HomeClient({ products, siteSettings = {} }) {
       />
 
       {/* Hero Carousel Banner */}
-      <div className="relative h-[500px] overflow-hidden">
+      <div className="relative h-[500px] overflow-hidden hero-gradient-bg">
+        {/* Base gradient overlay */}
+        <div className="absolute inset-0 hero-purple-glow" />
+        
+        {/* Animated decorative blobs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#00d4aa]/20 rounded-full blur-[100px] animated-blob" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#00b894]/15 rounded-full blur-[120px] animated-blob-delayed" />
+        
         {/* Background images with crossfade and animations */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           {carouselSlides.map((slide, index) => (
+            index === slideIndex && (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ 
-                opacity: index === slideIndex ? 1 : 0,
-                scale: index === slideIndex ? 1 : 1.1
-              }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.1 }}
               transition={{ 
                 duration: 0.8, 
@@ -107,19 +110,36 @@ export default function HomeClient({ products, siteSettings = {} }) {
               }}
               className="absolute inset-0"
             >
-              {/* Animated background image */}
-              <motion.div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url(${slide.background})` }}
-                animate={{
-                  scale: index === slideIndex ? [1, 1.05, 1] : 1,
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
+              {/* Custom CSS gradient background */}
+              <div className={`absolute inset-0 ${
+                index === 0 ? 'slide-bg-1' : 
+                index === 1 ? 'slide-bg-2' : 
+                'slide-bg-3'
+              }`} />
+              
+              {/* Decorative geometric shapes */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Hexagon grid pattern */}
+                <svg className="absolute w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <defs>
+                    <pattern id={`hex-${index}`} x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <polygon points="5,1 9,3 9,7 5,9 1,7 1,3" fill="none" stroke="#00d4aa" strokeWidth="0.3"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100" height="100" fill={`url(#hex-${index})`} />
+                </svg>
+                
+                {/* Floating circles */}
+                <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#00d4aa]/10 blur-[80px] pulse-glow" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#00b894]/10 blur-[100px] pulse-glow" style={{ animationDelay: '2s' }} />
+                
+                {/* Diagonal lines */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute top-0 left-0 w-full h-full" style={{ 
+                    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, #00d4aa 35px, #00d4aa 36px)'
+                  }} />
+                </div>
+              </div>
               
               {/* Animated gradient overlay */}
               <motion.div 
@@ -214,13 +234,14 @@ export default function HomeClient({ products, siteSettings = {} }) {
                 ))}
               </div>
             </motion.div>
+            )
           ))}
         </AnimatePresence>
 
         {/* Content overlay */}
         <div className="relative h-full flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               <motion.div
                 key={slideIndex}
                 initial={{ opacity: 0, y: 30 }}
@@ -230,14 +251,14 @@ export default function HomeClient({ products, siteSettings = {} }) {
                 className="text-center max-w-4xl mx-auto"
               >
                 <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                  {slide.title}
+                {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+                <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed">
                   {slide.subtitle}
                 </p>
                 <Link
                   href={slide.href}
-                  className="inline-flex items-center gap-3 bg-[#10b981] hover:bg-[#059669] text-black font-bold px-8 py-4 rounded-xl text-lg transition-all hover:shadow-lg hover:shadow-[#10b981]/25"
+                  className="inline-flex items-center gap-3 bg-[#00d4aa] hover:bg-[#00b894] text-black font-bold px-8 py-4 rounded-xl text-lg transition-all hover:shadow-lg hover:shadow-[#00d4aa]/25"
                 >
                   {slide.cta}
                   <FiArrowRight className="w-5 h-5" />
@@ -275,7 +296,7 @@ export default function HomeClient({ products, siteSettings = {} }) {
               onClick={() => setSlideIndex(i)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 i === slideIndex
-                  ? "w-8 bg-[#10b981]"
+                  ? "w-8 bg-[#00d4aa]"
                   : "w-2 bg-white/50 hover:bg-white/70"
               }`}
               aria-label={`Go to slide ${i + 1}`}
@@ -285,15 +306,46 @@ export default function HomeClient({ products, siteSettings = {} }) {
       </div>
 
       
-      {/* Trust Badges */}
-      <section className="bg-gradient-to-br from-[#0a0a0a] to-[#111111] border-y border-[#262626]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Trust Badges — New Design */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00d4aa]/5 rounded-full blur-[150px]" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="text-[#00d4aa] text-sm font-semibold uppercase tracking-widest">Why Researchers Trust Us</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">
+              Excellence in Every Aspect
+            </h2>
+          </motion.div>
+          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: <HiOutlineBeaker className="w-7 h-7 text-[#10b981]" />, title: "Lab Tested", sub: "99.8%+ purity verified" },
-              { icon: <HiOutlineTruck className="w-7 h-7 text-[#10b981]" />, title: "Discreet Shipping", sub: "Tracked & sealed packaging" },
-              { icon: <HiOutlineLightningBolt className="w-7 h-7 text-[#10b981]" />, title: "Fast Dispatch", sub: "Ships within 48h" },
-              { icon: <HiOutlineGlobe className="w-7 h-7 text-[#10b981]" />, title: "Worldwide Delivery", sub: "International shipping available" },
+              { 
+                icon: <BsShieldCheck className="w-8 h-8 text-[#00d4aa]" />, 
+                title: "Verified Purity", 
+                sub: "HPLC-tested batches with COA documentation for complete transparency" 
+              },
+              { 
+                icon: <HiOutlineTruck className="w-8 h-8 text-[#00d4aa]" />, 
+                title: "Stealth Shipping", 
+                sub: "Unmarked packages with tracking. Your privacy is our absolute priority" 
+              },
+              { 
+                icon: <HiOutlineGlobe className="w-8 h-8 text-[#00d4aa]" />, 
+                title: "Global Reach", 
+                sub: "Delivering to 50+ countries with customs-compliant documentation" 
+              },
+              { 
+                icon: <BsHeadset className="w-8 h-8 text-[#00d4aa]" />, 
+                title: "Expert Support", 
+                sub: "Real humans, not bots. Technical guidance and order assistance 24/7" 
+              },
             ].map((b, i) => (
               <motion.div
                 key={b.title}
@@ -304,22 +356,17 @@ export default function HomeClient({ products, siteSettings = {} }) {
                 custom={i}
                 className="group relative"
               >
-                <div className="relative bg-gradient-to-br from-[#141414] to-[#1a1a1a] border border-[#262626] rounded-2xl p-6 hover:border-[#10b981]/50 transition-all duration-300 hover:shadow-xl hover:shadow-[#10b981]/10 hover:-translate-y-1">
-                  {/* Icon container */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#10b981]/10 to-[#10b981]/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="relative bg-white border border-gray-200 rounded-3xl p-8 hover:border-[#00d4aa]/40 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00d4aa]/10 hover:-translate-y-2 text-center">
+                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#00d4aa]/20 to-[#00d4aa]/5 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 ring-1 ring-[#00d4aa]/20">
                     {b.icon}
                   </div>
                   
-                  {/* Content */}
-                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#00d4aa] transition-colors">
                     {b.title}
                   </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {b.sub}
                   </p>
-                  
-                  {/* Decorative element */}
-                  <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-[#10b981]/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </motion.div>
             ))}
@@ -330,60 +377,58 @@ export default function HomeClient({ products, siteSettings = {} }) {
       {/* Products by Category — Tabbed */}
       <ProductTabs products={products} />
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-[#111] border-t border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Testimonials — Redesigned */}
+      <section className="relative py-20 md:py-28 overflow-hidden bg-gray-50">
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#00d4aa]/5 rounded-full blur-[200px] -translate-y-1/2" />
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#00d4aa]/5 rounded-full blur-[200px] -translate-y-1/2" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
-              Client <span className="text-[#10b981]">Success Stories</span>
+            <span className="text-[#00d4aa] text-sm font-semibold uppercase tracking-widest">Testimonials</span>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mt-3 mb-4">
+              Trusted by Researchers <span className="text-[#00d4aa]">Worldwide</span>
             </h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
-              Discover why leading researchers choose BuyEtomidateProducts.
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              Join thousands of satisfied researchers who rely on our quality and consistency.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: "Dr. Alexandra Chen",
-                location: "Singapore",
-                text: "Their products transformed our research workflow. The crystalline structure is exceptional, and their analytical documentation is comprehensive. Game-changer for our laboratory.",
+                name: "Dr. Elena Kowalski",
+                text: "Five years of consistent quality. Their etomidate powder has become the gold standard for our pharmacology department. Documentation is always thorough.",
                 rating: 5,
               },
               {
-                name: "Prof. Michael Sterling",
-                location: "Cambridge, UK",
-                text: "After trying multiple suppliers, this company stands alone. Their attention to detail, consistent purity, and rapid delivery to our institution is unmatched.",
+                name: "Prof. James Morrison",
+                text: "The K-Pod flavors are a breakthrough for patient compliance studies. Precise dosing, no degradation, and the discreet shipping is essential for our work.",
                 rating: 5,
               },
               {
-                name: "Dr. Isabella Rodriguez",
-                location: "Barcelona, Spain",
-                text: "The liquid formulations are precisely what our clinical trials needed. Their quality control and packaging integrity exceeded all regulatory requirements.",
+                name: "Dr. Amara Okafor",
+                text: "International shipping to West Africa used to be a nightmare. These guys handle customs paperwork perfectly. Products arrive intact, every single time.",
                 rating: 5,
               },
               {
-                name: "Dr. Kenji Yamamoto",
-                location: "Tokyo, Japan",
-                text: "Outstanding reliability for our pharmaceutical research. Every batch arrives with complete analytical data and maintains consistent molecular structure.",
+                name: "Dr. Lars Jensen",
+                text: "Their liquid solutions saved our research timeline. Other suppliers had months of backlog. EtomidateShop delivered in 72 hours to our facility.",
                 rating: 5,
               },
               {
-                name: "Dr. Sarah Mitchell",
-                location: "Toronto, Canada",
-                text: "Their customer support and technical documentation are exceptional. They helped us optimize our experimental protocols with their compounds.",
+                name: "Prof. Maria Santos",
+                text: "The HPLC certificates they provide are accepted by our university ethics board without question. That level of transparency is rare in this industry.",
                 rating: 5,
               },
               {
-                name: "Dr. Hans Mueller",
-                location: "Munich, Germany",
-                text: "The vaporizer cartridges provide consistent dosing for our studies. Their innovative delivery systems have revolutionized our research methodology.",
+                name: "Dr. Yuki Tanaka",
+                text: "Packaging integrity is phenomenal. Even after 14 days in transit across the Pacific, the compounds showed zero degradation. Truly impressed.",
                 rating: 5,
               },
             ].map((review, i) => (
@@ -394,28 +439,26 @@ export default function HomeClient({ products, siteSettings = {} }) {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i}
-                className="bg-[#141414] border border-[#262626] rounded-2xl p-6 hover:border-[#10b981]/30 transition-all"
+                className="group relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-8 hover:border-[#00d4aa]/40 transition-all duration-500"
               >
-                {/* Stars */}
-                <div className="flex items-center gap-0.5 mb-4">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00d4aa]/10 to-transparent rounded-bl-3xl" />
+                
+                <div className="flex items-center gap-1 mb-5">
                   {[1,2,3,4,5].map((s) => (
-                    <FiStar key={s} className={`w-4 h-4 ${s <= review.rating ? "text-[#10b981] fill-[#10b981]" : "text-gray-700"}`} />
+                    <FiStar key={s} className={`w-5 h-5 ${s <= review.rating ? "text-[#00d4aa] fill-[#00d4aa]" : "text-gray-700"}`} />
                   ))}
                 </div>
 
-                {/* Text */}
-                <p className="text-sm text-gray-300 leading-relaxed mb-5">
+                <p className="text-gray-600 leading-relaxed mb-6 text-[15px]">
                   &ldquo;{review.text}&rdquo;
                 </p>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-[#1e1e1e]">
-                  <div className="w-10 h-10 rounded-full bg-[#10b981]/10 border border-[#10b981]/20 flex items-center justify-center text-[#10b981] font-bold text-sm">
+                <div className="flex items-center gap-4 pt-5 border-t border-gray-200">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d4aa]/20 to-[#00d4aa]/5 flex items-center justify-center text-[#00d4aa] font-bold ring-1 ring-[#00d4aa]/20">
                     {review.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">{review.name}</p>
-                    <p className="text-xs text-gray-500">{review.location}</p>
+                    <p className="font-semibold text-gray-900">{review.name}</p>
                   </div>
                 </div>
               </motion.div>
@@ -424,56 +467,86 @@ export default function HomeClient({ products, siteSettings = {} }) {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="bg-[#111111] text-white py-16 md:py-24 relative overflow-hidden border-t border-[#262626]">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#10b981] rounded-full blur-[180px]" />
-        </div>
+      {/* Why Choose Us — Redesigned */}
+      <section className="relative py-20 md:py-28 overflow-hidden bg-white border-t border-gray-200">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-[#00d4aa]/5 rounded-full blur-[150px]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-extrabold text-center mb-12"
-          >
-            Why Choose <span className="text-[#10b981]">BuyEtomidateProducts</span>?
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <BsShieldCheck className="w-8 h-8 text-[#10b981]" />,
-                title: "Laboratory Tested",
-                desc: "All products are tested for purity and potency. Each order includes detailed analytical documentation.",
-              },
-              {
-                icon: <BsBoxSeam className="w-8 h-8 text-[#10b981]" />,
-                title: "Discreet Shipping",
-                desc: "All packages are shipped in plain, unmarked packaging with tracking provided for your convenience.",
-              },
-              {
-                icon: <BsHeadset className="w-8 h-8 text-[#10b981]" />,
-                title: "24/7 Support",
-                desc: "Our customer service team is available around the clock to assist with any questions or concerns.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i}
-                className="bg-[#1a1a1a] border border-[#262626] rounded-2xl p-8 hover:border-[#10b981]/30 transition-colors"
-              >
-                <div className="w-14 h-14 bg-[#10b981]/10 rounded-xl flex items-center justify-center mb-5">
-                  {item.icon}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <span className="text-[#00d4aa] text-sm font-semibold uppercase tracking-widest">Our Promise</span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mt-3 mb-6">
+                Building Trust Through <span className="text-[#00d4aa]">Transparency</span>
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                Since 2019, we&apos;ve served over 2,000 research facilities across 50+ countries. 
+                Our commitment isn&apos;t just to supply chemicals—it&apos;s to advance scientific discovery 
+                with integrity and reliability.
+              </p>
+              
+              <div className="flex flex-wrap gap-4">
+                <div className="bg-gray-100 border border-gray-200 rounded-xl px-6 py-4">
+                  <div className="text-3xl font-bold text-[#00d4aa]">99.8%</div>
+                  <div className="text-sm text-gray-600">Minimum Purity</div>
                 </div>
-                <h3 className="text-lg font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
+                <div className="bg-gray-100 border border-gray-200 rounded-xl px-6 py-4">
+                  <div className="text-3xl font-bold text-[#00d4aa]">48h</div>
+                  <div className="text-sm text-gray-600">Avg. Dispatch</div>
+                </div>
+                <div className="bg-gray-100 border border-gray-200 rounded-xl px-6 py-4">
+                  <div className="text-3xl font-bold text-[#00d4aa]">50+</div>
+                  <div className="text-sm text-gray-600">Countries</div>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="grid gap-4">
+              {[
+                {
+                  icon: <BsShieldCheck className="w-6 h-6 text-[#00d4aa]" />,
+                  title: "Uncompromising Quality",
+                  desc: "Every batch undergoes triple-verification testing. HPLC, GC-MS, and NMR analysis included with every order.",
+                },
+                {
+                  icon: <BsBoxSeam className="w-6 h-6 text-[#00d4aa]" />,
+                  title: "Military-Grade Discretion",
+                  desc: "Vacuum-sealed, tamper-proof packaging. No logos, no labels, no indication of contents. Your privacy is absolute.",
+                },
+                {
+                  icon: <BsHeadset className="w-6 h-6 text-[#00d4aa]" />,
+                  title: "Real Human Support",
+                  desc: "No chatbots. No automated responses. Reach actual scientists and logistics experts who understand your needs.",
+                },
+                {
+                  icon: <HiOutlineBeaker className="w-6 h-6 text-[#00d4aa]" />,
+                  title: "Research Partnership",
+                  desc: "We don&apos;t just sell compounds. We collaborate on protocols, provide technical guidance, and support your success.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i}
+                  className="group flex gap-5 bg-gray-100/50 border border-gray-200 rounded-2xl p-6 hover:border-[#00d4aa]/40 hover:bg-gray-100 transition-all duration-300"
+                >
+                  <div className="shrink-0 w-12 h-12 bg-gradient-to-br from-[#00d4aa]/20 to-[#00d4aa]/5 rounded-xl flex items-center justify-center ring-1 ring-[#00d4aa]/20 group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#00d4aa] transition-colors">{item.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -487,10 +560,11 @@ const categoryMeta = {
   powder: { label: "Powder / Crystal", icon: <FaFlask className="w-4 h-4" /> },
   vape: { label: "Vape / K-Pods", icon: <FaVial className="w-4 h-4" /> },
   liquid: { label: "Liquid", icon: <FaTint className="w-4 h-4" /> },
+  "vape flavours": { label: "Vape Flavours", icon: <FaAppleAlt className="w-4 h-4" /> },
 };
 
 function ProductTabs({ products }) {
-  const categories = ["powder", "vape", "liquid"].filter((cat) =>
+  const categories = ["powder", "vape", "liquid", "vape flavours"].filter((cat) =>
     products.some((p) => p.category === cat)
   );
   const [activeTab, setActiveTab] = useState(categories[0] || "powder");
@@ -515,7 +589,7 @@ function ProductTabs({ products }) {
   }, [activeTab, filtered.length]);
 
   return (
-    <section className="py-16 md:py-24 bg-[#0a0a0a]">
+    <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}
@@ -524,10 +598,10 @@ function ProductTabs({ products }) {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
-            Shop <span className="text-[#10b981]">Products</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+            Shop <span className="text-[#00d4aa]">Products</span>
           </h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
+          <p className="text-gray-600 max-w-xl mx-auto">
             Browse our collection of high-quality products in various formulations.
           </p>
         </motion.div>
@@ -540,8 +614,8 @@ function ProductTabs({ products }) {
               onClick={() => setActiveTab(cat)}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
                 activeTab === cat
-                  ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/20"
-                  : "bg-[#141414] text-gray-400 border border-[#262626] hover:border-[#10b981]/40 hover:text-white"
+                  ? "bg-[#00d4aa] text-black shadow-lg shadow-[#00d4aa]/20"
+                  : "bg-gray-100 text-gray-600 border border-gray-200 hover:border-[#00d4aa]/40 hover:text-gray-900"
               }`}
             >
               {categoryMeta[cat]?.icon}
@@ -554,17 +628,17 @@ function ProductTabs({ products }) {
         <div ref={gridRef}>
           {filtered.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-gray-500">No products in this category yet.</p>
+              <p className="text-gray-600">No products in this category yet.</p>
             </div>
           ) : (
             <div className={`grid gap-8 ${filtered.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"}`}>
               {filtered.map((product) => (
                 <div key={product._id || product.slug} className="product-card group">
                   {/* Card Container */}
-                  <div className="relative bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] border border-[#262626] rounded-3xl overflow-hidden hover:border-[#10b981]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#10b981]/10 hover:-translate-y-1">
+                  <div className="relative bg-white border border-gray-200 rounded-3xl overflow-hidden hover:border-[#00d4aa]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00d4aa]/10 hover:-translate-y-1">
                     
                     {/* Image Section */}
-                    <div className="relative h-64 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] image-container no-context-menu">
+                    <div className="relative h-64 overflow-hidden bg-gray-50 image-container no-context-menu">
                       {product.image ? (
                         <ProtectedImage 
                           src={product.image} 
@@ -580,18 +654,18 @@ function ProductTabs({ products }) {
                       )}
                       
                       {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#00d4aa]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       
                       {/* Status Badge */}
                       <div className="absolute top-4 left-4">
                         <span className={`inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm ${
                           product.inStock 
-                            ? "bg-green-500/20 text-green-400 border border-green-500/30" 
-                            : "bg-red-500/20 text-red-400 border border-red-500/30"
+                            ? "bg-green-100 text-green-700 border border-green-200" 
+                            : "bg-red-100 text-red-700 border border-red-200"
                         }`}>
                           {product.inStock ? (
                             <>
-                              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                               In Stock
                             </>
                           ) : (
@@ -602,7 +676,7 @@ function ProductTabs({ products }) {
                       
                       {/* Price Badge */}
                       <div className="absolute top-4 right-4">
-                        <span className="inline-flex items-center text-sm font-bold text-white bg-black/50 backdrop-blur-sm border border-white/20 px-3 py-1.5 rounded-full">
+                        <span className="inline-flex items-center text-sm font-bold text-gray-900 bg-white/90 backdrop-blur-sm border border-gray-200 px-3 py-1.5 rounded-full">
                           From €{product.price?.toFixed(2)}
                         </span>
                       </div>
@@ -612,37 +686,37 @@ function ProductTabs({ products }) {
                     <div className="p-6">
                       {/* Category */}
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-[#10b981]">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-[#00d4aa]">
                           {product.category}
                         </span>
                         <span className="text-gray-600">•</span>
                         <div className="flex items-center gap-0.5">
                           {[1,2,3,4,5].map((s) => (
-                            <FiStar key={s} className="w-3 h-3 text-[#10b981] fill-[#10b981]" />
+                            <FiStar key={s} className="w-3 h-3 text-[#00d4aa] fill-[#00d4aa]" />
                           ))}
                         </div>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#10b981] transition-colors duration-300">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#00d4aa] transition-colors duration-300">
                         {product.name}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
                         {product.shortDescription || product.description || "Premium quality pharmaceutical-grade product"}
                       </p>
 
                       {/* Price Range */}
                       <div className="mb-4">
-                        <span className="text-2xl font-bold text-[#10b981]">
+                        <span className="text-2xl font-bold text-[#00d4aa]">
                           {product.sizes?.length > 1
                             ? `€${product.sizes[0].price?.toFixed(2)}`
                             : `€${product.price?.toFixed(2)}`
                           }
                         </span>
                         {product.sizes?.length > 1 && (
-                          <span className="text-sm text-gray-500 ml-2">
+                          <span className="text-sm text-gray-600 ml-2">
                             — €{product.sizes[product.sizes.length - 1].price?.toFixed(2)}
                           </span>
                         )}
@@ -653,8 +727,8 @@ function ProductTabs({ products }) {
                         href={`/shop/${product.slug}`}
                         className={`w-full flex items-center justify-center gap-2 font-semibold py-3 px-6 rounded-xl transition-all duration-300 ${
                           product.inStock
-                            ? "bg-[#10b981] hover:bg-[#059669] text-black hover:shadow-lg hover:shadow-[#10b981]/25 hover:scale-105"
-                            : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                            ? "bg-[#00d4aa] hover:bg-[#00b894] text-black hover:shadow-lg hover:shadow-[#00d4aa]/25 hover:scale-105"
+                            : "bg-gray-200 text-gray-400 cursor-not-allowed"
                         }`}
                       >
                         {product.inStock ? (
@@ -677,3 +751,10 @@ function ProductTabs({ products }) {
     </section>
   );
 }
+
+
+
+
+
+
+

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
 import { FiShoppingBag, FiHome, FiInfo, FiMail, FiChevronDown } from "react-icons/fi";
-import { GiChemicalDrop } from "react-icons/gi";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -17,14 +16,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-[#0a0a0a] via-[#111] to-[#0a0a0a] text-white sticky top-0 z-50 shadow-lg shadow-black/30 border-b border-[#1e1e1e] backdrop-blur-xl">
+    <nav className="bg-white text-gray-900 sticky top-0 z-50 shadow-md border-b border-gray-200 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 py-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <img src="/logo.svg" alt="BuyEtomidateProducts.com" className="h-12 transition-all duration-300 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-[#10b981]/10 rounded-xl scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+              <img src="/logo.svg" alt="EtomidateShop.com" className="h-10 transition-all duration-300 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-[#00d4aa]/10 rounded-xl scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300" />
             </div>
           </Link>
 
@@ -34,7 +33,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-[#10b981] transition-all duration-200 hover:bg-[#10b981]/5 px-3 py-2 rounded-lg"
+                className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-[#00d4aa] transition-all duration-200 hover:bg-[#00d4aa]/5 px-3 py-2 rounded-lg"
               >
                 <div className="w-4 h-4 flex items-center justify-center">
                   {l.icon}
@@ -44,7 +43,7 @@ export default function Navbar() {
             ))}
             <Link
               href="/shop"
-              className="flex items-center gap-2.5 bg-gradient-to-r from-[#10b981] to-[#059669] hover:from-[#059669] hover:to-[#047857] text-black text-sm font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-[#10b981]/25 hover:scale-105"
+              className="flex items-center gap-2.5 bg-[#00d4aa] hover:bg-[#00b894] text-black text-sm font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#00d4aa]/25 hover:scale-105"
             >
               <FiShoppingBag className="w-4 h-4" />
               Shop Now
@@ -54,7 +53,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2.5 rounded-xl hover:bg-white/10 transition-all duration-200 border border-transparent hover:border-[#262626]"
+            className="md:hidden p-2.5 rounded-xl hover:bg-gray-100 transition-all duration-200 border border-gray-200 hover:border-[#00d4aa]"
             aria-label="Toggle menu"
           >
             {open ? <HiX className="w-6 h-6" /> : <HiOutlineMenuAlt3 className="w-6 h-6" />}
@@ -70,7 +69,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-gradient-to-b from-[#111] to-[#0a0a0a] border-t border-[#1e1e1e] overflow-hidden"
+            className="md:hidden bg-white border-t border-gray-200 overflow-hidden"
           >
             <div className="px-4 py-6 space-y-2">
               {links.map((l, i) => (
@@ -83,7 +82,7 @@ export default function Navbar() {
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-[#10b981]/5 rounded-xl px-4 py-3 transition-all duration-200 border border-transparent hover:border-[#10b981]/20"
+                    className="flex items-center gap-3 text-sm font-medium text-gray-600 hover:text-[#00d4aa] hover:bg-[#00d4aa]/5 rounded-xl px-4 py-3 transition-all duration-200 border border-gray-200 hover:border-[#00d4aa]/20"
                   >
                     <div className="w-4 h-4 flex items-center justify-center">
                       {l.icon}
@@ -100,7 +99,7 @@ export default function Navbar() {
                 <Link
                   href="/shop"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#10b981] to-[#059669] hover:from-[#059669] hover:to-[#047857] text-black text-sm font-bold px-6 py-3.5 rounded-xl mt-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#10b981]/25"
+                  className="flex items-center justify-center gap-2.5 bg-[#00d4aa] hover:bg-[#00b894] text-black text-sm font-bold px-6 py-3.5 rounded-xl mt-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#00d4aa]/25"
                 >
                   <FiShoppingBag className="w-4 h-4" />
                   Shop Now
@@ -113,3 +112,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

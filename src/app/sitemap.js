@@ -4,7 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import Product from "@/models/Product";
 
 export default async function sitemap() {
-  const baseUrl = "https://buyetomidateproducts.com";
+  const baseUrl = "https://etomidateshop.com";
 
   let productUrls = [];
   try {
@@ -61,6 +61,12 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/shop/etomidate-liquid-solution-standard`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shop/etomidate-flavour-grape`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,

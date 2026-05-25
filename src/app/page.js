@@ -6,47 +6,62 @@ import HomeClient from "@/components/HomeClient";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Buy Etomidate Online — Powder, K-Pods Vape & Liquid",
+  title: "Etomidate Shop — Premium Powder, K-Pods Vape & Liquid",
   description:
-    "Buy etomidate powder, K-Pods vape cartridges & liquid solutions online. Lab-tested ≥99.8% purity. Etomidate K-Pods, etomidate vape pods — COA certified, fast discreet worldwide shipping within 24h.",
+    "EtomidateShop.com — Premium etomidate powder, K-Pods vape cartridges & liquid solutions. Lab-tested ≥99.8% purity. COA certified, fast discreet worldwide shipping within 24h.",
   keywords: [
     "buy etomidate online",
-    "etomidate powder",
     "etomidate for sale",
-    "etomidate vape",
+    "etomidate powder buy",
+    "etomidate vape pods buy",
     "etomidate K-Pods",
-    "K-Pods vape",
-    "K-Pods etomidate",
-    "buy K-Pods online",
-    "buy etomidate vape",
-    "etomidate vape cartridge",
-    "etomidate pod",
-    "etomidate liquid solution",
+    "etomidate liquid buy",
     "pharmaceutical grade etomidate",
-    "research chemical etomidate",
-    "etomidate supplier",
-    "order etomidate",
-    "etomidate COA",
-    "high purity etomidate",
+    "etomidate 99.8% purity",
+    "etomidate COA included",
+    "HPLC verified etomidate",
+    "research grade etomidate",
     "discreet etomidate shipping",
-    "etomidate worldwide delivery",
+    "etomidate worldwide delivery 24h",
+    "etomidate bulk discount",
+    "best etomidate supplier",
+    "trusted etomidate vendor",
+    "etomidate shop online",
+    "etomidate vape cartridge",
+    "etomidate disposable vape",
+    "etomidate liquid solution",
+    "space oil",
+    "buy space oil",
+    "space oil pods",
+    "space pods vape",
+    "etomidate e-liquid",
+    "etomidate flavours",
+    "etomidate oil",
+    "etomidate drops",
+    "etomidate concentrate",
+    "pharmaceutical vape pods",
+    "33125-97-2",
+    "CAS 33125-97-2",
+    "buy CAS 33125-97-2",
+    "etomidate CAS number",
+    "etomidate 33125-97-2",
   ],
   openGraph: {
-    title: "Buy Etomidate & K-Pods Online — Powder, Vape & Liquid",
+    title: "Etomidate Shop — Premium Powder, Vape & Liquid",
     description:
-      "Buy etomidate powder, K-Pods vape cartridges & liquid online. ≥99.8% purity, lab-tested with COA. Fast discreet shipping worldwide.",
-    url: "https://buyetomidateproducts.com",
-    siteName: "BuyEtomidateProducts.com",
+      "EtomidateShop.com — Premium etomidate powder, K-Pods vape cartridges & liquid. ≥99.8% purity, lab-tested with COA. Fast discreet shipping worldwide.",
+    url: "https://etomidateshop.com",
+    siteName: "EtomidateShop.com",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Buy Etomidate Online — Powder, Vape & Liquid",
+    title: "Etomidate Shop — Premium Powder, Vape & Liquid",
     description:
-      "Pharmaceutical-grade etomidate. ≥99.8% purity, lab-tested, COA included. Ships worldwide within 24 hours.",
+      "EtomidateShop.com — Premium etomidate powder, K-Pods vape & liquid. ≥99.8% purity, lab-tested, COA included. Ships worldwide within 24h.",
   },
   alternates: {
-    canonical: "https://buyetomidateproducts.com",
+    canonical: "https://etomidateshop.com",
   },
   robots: {
     index: true,
@@ -55,7 +70,17 @@ export const metadata = {
 };
 
 export default async function Home() {
-  await dbConnect();
+  const conn = await dbConnect();
+  
+  if (!conn) {
+    const siteSettings = {
+      announcement: "",
+      heroSubtitle: "",
+      siteName: "EtomidateShop",
+      tagline: "",
+    };
+    return <HomeClient products={[]} siteSettings={siteSettings} />;
+  }
   const productsRaw = await Product.find({}).lean();
   const products = productsRaw.map((p) => ({
     _id: p._id.toString(),
@@ -75,7 +100,7 @@ export default async function Home() {
   const siteSettings = {
     announcement: raw?.announcement || "",
     heroSubtitle: raw?.heroSubtitle || "",
-    siteName: raw?.siteName || "BuyEtomidateProducts",
+    siteName: raw?.siteName || "EtomidateShop",
     tagline: raw?.tagline || "",
   };
 

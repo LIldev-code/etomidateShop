@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema(
     slug: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    category: { type: String, enum: ["powder", "vape", "liquid"], required: true },
+    category: { type: String, enum: ["powder", "vape", "liquid", "vape flavours"], required: true },
     shortDescription: { type: String, default: "" },
     description: { type: String, default: "" },
     specifications: [{ type: String }],

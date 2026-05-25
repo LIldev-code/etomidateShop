@@ -1,29 +1,36 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { FaFlask, FaVial, FaTint } from "react-icons/fa";
-import { FiArrowRight, FiCheckCircle, FiXCircle, FiStar, FiFilter, FiShoppingBag, FiChevronRight } from "react-icons/fi";
+import { FaFlask, FaVial, FaTint, FaAppleAlt } from "react-icons/fa";
+import { FiArrowRight, FiCheckCircle, FiXCircle, FiStar, FiFilter, FiShoppingBag, FiChevronRight, FiX } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const productIcons = {
-  powder: <FaFlask className="w-16 h-16 text-[#10b981]" />,
-  vape: <FaVial className="w-16 h-16 text-[#10b981]" />,
-  liquid: <FaTint className="w-16 h-16 text-[#10b981]" />,
+  powder: <FaFlask className="w-16 h-16 text-[#00d4aa]" />,
+  vape: <FaVial className="w-16 h-16 text-[#00d4aa]" />,
+  liquid: <FaTint className="w-16 h-16 text-[#00d4aa]" />,
+  "vape flavours": <FaAppleAlt className="w-16 h-16 text-[#00d4aa]" />,
 };
 
 const categoryInfo = {
   powder: { label: "Powder / Krystal", icon: <FaFlask className="w-5 h-5" />, heading: "Etomidate Powder / Krystal", desc: "High-purity etomidate powder for research and clinical use." },
   vape: { label: "Vape / K-Pods", icon: <FaVial className="w-5 h-5" />, heading: "Etomidate Vape / K-Pods", desc: "Precision-formulated etomidate vape cartridges and K-Pod systems." },
   liquid: { label: "Liquid", icon: <FaTint className="w-5 h-5" />, heading: "Etomidate Liquid", desc: "Pharmaceutical-grade etomidate liquid solutions." },
+  "vape flavours": { label: "Vape Flavours", icon: <FaAppleAlt className="w-5 h-5" />, heading: "Vape Flavours", desc: "Premium flavored etomidate vape products in various fruit and specialty flavors." },
 };
 
 export default function ShopClient({ products }) {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const searchParams = useSearchParams();
+  const [activeFilter, setActiveFilter] = useState(() => {
+    const cat = searchParams?.get("category");
+    return cat ? cat : "all";
+  });
   const heroRef = useRef(null);
   const categoriesRef = useRef(null);
 
-  const categories = ["powder", "vape", "liquid"].filter((cat) =>
+  const categories = ["powder", "vape", "liquid", "vape flavours"].filter((cat) =>
     products.some((p) => p.category === cat)
   );
 
@@ -68,38 +75,35 @@ export default function ShopClient({ products }) {
     : categories.filter((c) => c === activeFilter);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <div ref={heroRef} className="relative overflow-hidden border-b border-[#1a1a1a]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#10b981]/5 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 relative z-10">
+      <div ref={heroRef} className="relative overflow-hidden border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative z-10">
           {/* Breadcrumb */}
-          <nav className="hero-anim flex items-center gap-1.5 text-sm text-gray-500 mb-8">
-            <Link href="/" className="hover:text-[#10b981] transition-colors">Home</Link>
+          <nav className="hero-anim flex items-center gap-1.5 text-sm text-gray-500 mb-6">
+            <Link href="/" className="hover:text-[#00d4aa] transition-colors">Home</Link>
             <FiChevronRight className="w-3 h-3" />
-            <span className="text-[#10b981] font-medium">Shop</span>
+            <span className="text-[#00d4aa] font-medium">Shop</span>
           </nav>
 
-          <h1 className="hero-anim text-4xl md:text-5xl font-extrabold text-white mb-4">
-            All <span className="text-[#10b981]">Products</span>
+          <h1 className="hero-anim text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+            All <span className="text-[#00d4aa]">Products</span>
           </h1>
-          <p className="hero-anim text-gray-400 max-w-xl text-lg mb-8">
+          <p className="hero-anim text-gray-600 max-w-xl text-base mb-6">
             Lab-tested, COA-certified etomidate in three forms. Each product ships within 48h with discreet packaging.
           </p>
 
-          {/* Filter pills */}
-          <div className="hero-anim flex flex-wrap gap-2">
+          {/* Filter pills - Teal style like reference */}
+          <div className="hero-anim flex flex-wrap items-center gap-3">
             <button
               onClick={() => setActiveFilter("all")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border-2 ${
                 activeFilter === "all"
-                  ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/20"
-                  : "bg-[#141414] text-gray-400 border border-[#262626] hover:border-[#10b981]/40 hover:text-white"
+                  ? "bg-[#00d4aa] border-[#00d4aa] text-black"
+                  : "bg-white border-gray-300 text-gray-700 hover:border-[#00d4aa] hover:text-[#00d4aa]"
               }`}
             >
-              <FiFilter className="w-3.5 h-3.5" />
-              All Products
-              <span className="text-xs opacity-70">({products.length})</span>
+              All Products ({products.length})
             </button>
             {categories.map((cat) => {
               const count = products.filter((p) => p.category === cat).length;
@@ -107,18 +111,25 @@ export default function ShopClient({ products }) {
                 <button
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border-2 ${
                     activeFilter === cat
-                      ? "bg-[#10b981] text-black shadow-lg shadow-[#10b981]/20"
-                      : "bg-[#141414] text-gray-400 border border-[#262626] hover:border-[#10b981]/40 hover:text-white"
+                      ? "bg-[#00d4aa] border-[#00d4aa] text-black"
+                      : "bg-white border-gray-300 text-gray-700 hover:border-[#00d4aa] hover:text-[#00d4aa]"
                   }`}
                 >
-                  {categoryInfo[cat]?.icon}
-                  {categoryInfo[cat]?.label}
-                  <span className="text-xs opacity-70">({count})</span>
+                  {categoryInfo[cat]?.label} ({count})
                 </button>
               );
             })}
+            {activeFilter !== "all" && (
+              <button
+                onClick={() => setActiveFilter("all")}
+                className="flex items-center gap-1 px-4 py-2 text-sm text-gray-500 hover:text-[#00d4aa] transition-colors"
+              >
+                <FiX className="w-4 h-4" />
+                Clear all
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -130,96 +141,65 @@ export default function ShopClient({ products }) {
           if (catProducts.length === 0) return null;
 
           return (
-            <div key={cat} className={`category-section ${catIdx > 0 ? "mt-16 pt-16 border-t border-[#1a1a1a]" : ""}`}>
+            <div key={cat} className={`category-section ${catIdx > 0 ? "mt-12 pt-12 border-t border-gray-200" : ""}`}>
               {/* Category Header */}
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-[#10b981]/10 border border-[#10b981]/20 rounded-2xl flex items-center justify-center text-[#10b981]">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 bg-[#00d4aa]/10 border border-[#00d4aa]/20 rounded-xl flex items-center justify-center text-[#00d4aa]">
                   {categoryInfo[cat]?.icon}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">
+                  <h2 className="text-xl font-bold text-gray-900">
                     {categoryInfo[cat]?.heading}
                   </h2>
                   <p className="text-sm text-gray-500">{categoryInfo[cat]?.desc}</p>
                 </div>
                 <div className="ml-auto hidden sm:block">
-                  <span className="text-xs text-gray-600 bg-[#141414] border border-[#262626] px-3 py-1 rounded-full">
+                  <span className="text-xs text-gray-600 bg-gray-100 border border-gray-200 px-3 py-1 rounded-full">
                     {catProducts.length} product{catProducts.length !== 1 ? "s" : ""}
                   </span>
                 </div>
               </div>
 
-              {/* Product Cards */}
-              <div className={`grid gap-6 ${catProducts.length === 1 ? "grid-cols-1 max-w-lg" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"}`}>
+              {/* Product Cards - Clean grid like reference */}
+              <div className={`grid gap-4 ${catProducts.length === 1 ? "grid-cols-1 max-w-sm mx-auto" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"}`}>
                 {catProducts.map((product) => (
                   <Link key={product._id} href={`/shop/${product.slug}`} className="block group">
-                    <div className="shop-card bg-[#141414] border border-[#262626] rounded-2xl overflow-hidden hover:border-[#10b981]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#10b981]/5">
+                    <div className="shop-card bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-200">
+                      {/* Badge */}
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-gray-900 bg-[#ff6b6b] px-2 py-1 rounded">
+                          Multi Buy
+                        </span>
+                      </div>
+                      
                       {/* Image */}
-                      <div className="relative h-52 bg-gradient-to-br from-[#1a1a1a] to-[#111] flex items-center justify-center overflow-hidden">
+                      <div className="relative h-48 bg-gray-50 flex items-center justify-center overflow-hidden p-4">
                         {product.image ? (
-                          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <img src={product.image} alt={product.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                         ) : (
                           <div className="text-center">
                             {productIcons[product.category]}
                           </div>
                         )}
-                        {/* Stock indicator */}
-                        <div className="absolute top-3 left-3">
-                          {product.inStock ? (
-                            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-white bg-green-500/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-                              <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                              In Stock
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-white bg-red-500/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-                              Sold Out
-                            </span>
-                          )}
-                        </div>
                       </div>
 
                       {/* Content */}
-                      <div className="p-5">
-                        {/* Rating */}
-                        <div className="flex items-center gap-0.5 mb-2">
-                          {[1,2,3,4,5].map((s) => (
-                            <FiStar key={s} className="w-3 h-3 text-[#10b981] fill-[#10b981]" />
-                          ))}
-                          <span className="text-[10px] text-gray-500 ml-1.5">(5.0)</span>
+                      <div className="p-3">
+                        {/* Name */}
+                        <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-1">{product.name}</h3>
+                        
+                        {/* Price */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-lg font-bold text-gray-900">€{product.price?.toFixed(2)}</span>
+                          {product.sizes?.length > 0 && (
+                            <span className="text-xs text-gray-500">{product.sizes[0]?.label}</span>
+                          )}
                         </div>
 
-                        {/* Name + Price row */}
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-bold text-white group-hover:text-[#10b981] transition-colors">{product.name}</h3>
-                          <span className="text-lg font-bold text-[#10b981]">€{product.price?.toFixed(2)}</span>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-sm text-gray-500 line-clamp-2 mb-4">
-                          {product.shortDescription || product.description || "Premium quality product"}
-                        </p>
-
-                        {/* Sizes */}
-                        {product.sizes?.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 mb-4">
-                            {product.sizes.map((s) => (
-                              <span key={s.label} className="text-xs bg-[#0d0d0d] border border-[#262626] text-gray-400 px-2.5 py-1 rounded-md">
-                                {s.label} — <span className="text-[#10b981] font-semibold">€{s.price?.toFixed(2)}</span>
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* CTA */}
-                        <div className="flex items-center justify-between pt-4 border-t border-[#1e1e1e]">
-                          <span className="flex items-center gap-1.5 text-sm font-medium text-gray-500 group-hover:text-[#10b981] transition-colors">
-                            <FiShoppingBag className="w-3.5 h-3.5" />
-                            Order Now
-                          </span>
-                          <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] border border-[#262626] group-hover:bg-[#10b981] group-hover:border-[#10b981] flex items-center justify-center transition-all duration-300">
-                            <FiArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-black transition-colors" />
-                          </div>
-                        </div>
+                        {/* Quick add button */}
+                        <button className="w-full py-2 bg-[#00d4aa] text-black text-sm font-semibold rounded hover:bg-[#00b894] transition-colors">
+                          Add to Cart
+                        </button>
                       </div>
                     </div>
                   </Link>
@@ -238,3 +218,7 @@ export default function ShopClient({ products }) {
     </div>
   );
 }
+
+
+
+

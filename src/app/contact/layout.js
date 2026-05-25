@@ -1,26 +1,30 @@
 export const metadata = {
-  title: "Contact Us — Get in Touch",
+  title: "Contact EtomidateShop — Order Support & Bulk Inquiries | EtomidateShop.com",
   description:
-    "Contact BuyEtomidateProducts.com for orders, inquiries, or support. We respond within 24 hours. Reach us via email or phone for any questions about our etomidate products, shipping, or bulk orders.",
+    "Contact EtomidateShop.com for orders, inquiries, or support. We respond within 24 hours. Reach us via email at orders@etomidate.com for any questions about our etomidate products, shipping, or bulk orders.",
   keywords: [
-    "contact BuyEtomidateProducts",
-    "etomidate support",
-    "etomidate order help",
-    "buy etomidate inquiry",
-    "etomidate bulk order",
-    "etomidate shipping questions",
-    "buy K-Pods",
-    "K-Pods order",
-    "etomidate vape inquiry",
+    "contact etomidate supplier",
+    "etomidate order support",
+    "etomidate bulk order inquiry",
+    "etomidate wholesale inquiry",
+    "buy etomidate bulk",
+    "etomidate shipping support",
+    "etomidate customer service",
+    "etomidate K-Pods order inquiry",
+    "etomidate powder order support",
+    "etomidate liquid order help",
+    "EtomidateShop contact",
+    "orders@etomidate.com",
+    "etomidate 24 hour support",
   ],
   openGraph: {
-    title: "Contact BuyEtomidateProducts — Orders & Support",
+    title: "Contact EtomidateShop — Orders & Support",
     description:
-      "Have questions? Contact us for product inquiries, order support, or bulk pricing. We reply within 24 hours.",
-    url: "https://buyetomidateproducts.com/contact",
+      "Have questions? Contact us at orders@etomidate.com for product inquiries, order support, or bulk pricing. We reply within 24 hours.",
+    url: "https://etomidateshop.com/contact",
   },
   alternates: {
-    canonical: "https://buyetomidateproducts.com/contact",
+    canonical: "https://etomidateshop.com/contact",
   },
 };
 

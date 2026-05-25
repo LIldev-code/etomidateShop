@@ -8,9 +8,9 @@ import { FiCheckCircle, FiXCircle, FiShoppingBag, FiChevronRight, FiLoader, FiAr
 import { BsListCheck } from "react-icons/bs";
 
 const categoryIcons = {
-  powder: <FaFlask className="w-16 h-16 text-[#10b981]" />,
-  vape: <FaVial className="w-16 h-16 text-[#10b981]" />,
-  liquid: <FaTint className="w-16 h-16 text-[#10b981]" />,
+  powder: <FaFlask className="w-16 h-16 text-[#00d4aa]" />,
+  vape: <FaVial className="w-16 h-16 text-[#00d4aa]" />,
+  liquid: <FaTint className="w-16 h-16 text-[#00d4aa]" />,
 };
 
 export default function ProductPage() {
@@ -33,7 +33,7 @@ export default function ProductPage() {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-24 text-center">
-        <FiLoader className="w-8 h-8 text-[#10b981] animate-spin mx-auto mb-3" />
+        <FiLoader className="w-8 h-8 text-[#00d4aa] animate-spin mx-auto mb-3" />
         <p className="text-gray-500">Loading product...</p>
       </div>
     );
@@ -43,7 +43,7 @@ export default function ProductPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-24 text-center">
         <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-        <Link href="/shop" className="text-[#10b981] hover:underline">
+        <Link href="/shop" className="text-[#00d4aa] hover:underline">
           Back to Shop
         </Link>
       </div>
@@ -57,11 +57,11 @@ export default function ProductPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-sm text-gray-500 mb-8">
-        <Link href="/" className="hover:text-[#10b981] transition-colors">Home</Link>
+        <Link href="/" className="hover:text-[#00d4aa] transition-colors">Home</Link>
         <FiChevronRight className="w-3 h-3" />
-        <Link href="/shop" className="hover:text-[#10b981] transition-colors">Shop</Link>
+        <Link href="/shop" className="hover:text-[#00d4aa] transition-colors">Shop</Link>
         <FiChevronRight className="w-3 h-3" />
-        <span className="text-[#10b981] font-medium">{product.name}</span>
+        <span className="text-[#00d4aa] font-medium">{product.name}</span>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -70,7 +70,7 @@ export default function ProductPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#262626] rounded-2xl flex items-center justify-center h-80 lg:h-[500px] overflow-hidden relative"
+          className="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 rounded-2xl flex items-center justify-center h-80 lg:h-[500px] overflow-hidden relative"
         >
           {product.image ? (
             <img
@@ -83,7 +83,7 @@ export default function ProductPage() {
               <div className="mb-4">
                 {categoryIcons[product.category]}
               </div>
-              <span className="text-sm font-semibold text-[#10b981] uppercase tracking-widest">
+              <span className="text-sm font-semibold text-[#00d4aa] uppercase tracking-widest">
                 {product.category}
               </span>
             </div>
@@ -112,28 +112,28 @@ export default function ProductPage() {
           {/* Rating */}
           <div className="flex items-center gap-0.5 mb-3">
             {[1,2,3,4,5].map((s) => (
-              <FiStar key={s} className="w-4 h-4 text-[#10b981] fill-[#10b981]" />
+              <FiStar key={s} className="w-4 h-4 text-[#00d4aa] fill-[#00d4aa]" />
             ))}
             <span className="text-xs text-gray-500 ml-1.5">5.0 (128 reviews)</span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
             {product.name}
           </h1>
 
-          <p className="text-gray-400 leading-relaxed mb-6">{product.description}</p>
+          <p className="text-gray-600 leading-relaxed mb-6">{product.description}</p>
 
           {/* Specifications */}
           {product.specifications?.length > 0 && (
             <div className="mb-6">
-              <h3 className="flex items-center gap-2 text-sm font-bold text-[#10b981] uppercase tracking-wider mb-3">
-                <BsListCheck className="w-4 h-4 text-[#10b981]" />
+              <h3 className="flex items-center gap-2 text-sm font-bold text-[#00d4aa] uppercase tracking-wider mb-3">
+                <BsListCheck className="w-4 h-4 text-[#00d4aa]" />
                 Specifications
               </h3>
               <ul className="space-y-2">
                 {product.specifications.map((spec) => (
-                  <li key={spec} className="text-sm text-gray-400 flex items-start gap-2.5">
-                    <FiCheckCircle className="w-4 h-4 text-[#10b981] shrink-0 mt-0.5" />
+                  <li key={spec} className="text-sm text-gray-600 flex items-start gap-2.5">
+                    <FiCheckCircle className="w-4 h-4 text-[#00d4aa] shrink-0 mt-0.5" />
                     {spec}
                   </li>
                 ))}
@@ -144,7 +144,7 @@ export default function ProductPage() {
           {/* Size Selector */}
           {product.sizes?.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3">
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
                 Choose Quantity
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -154,8 +154,8 @@ export default function ProductPage() {
                     onClick={() => setSelectedSize(i)}
                     className={`px-5 py-2.5 rounded-lg border text-sm font-medium transition-all ${
                       selectedSize === i
-                        ? "bg-[#10b981] text-black border-[#10b981] shadow-md shadow-[#10b981]/20"
-                        : "bg-[#1a1a1a] text-gray-300 border-[#262626] hover:border-[#10b981]/50"
+                        ? "bg-[#00d4aa] text-black border-[#00d4aa] shadow-md shadow-[#00d4aa]/20"
+                        : "bg-white text-gray-700 border-gray-200 hover:border-[#00d4aa]/50"
                     }`}
                   >
                     {size.label} — €{size.price.toFixed(2)}
@@ -166,14 +166,14 @@ export default function ProductPage() {
           )}
 
           {/* Price */}
-          <div className="text-3xl font-extrabold text-[#10b981] mb-8">
+          <div className="text-3xl font-extrabold text-[#00d4aa] mb-8">
             €{currentPrice.toFixed(2)}
           </div>
 
           {/* Order Button */}
           <Link
             href={`/order/${product.slug}${currentLabel ? `?size=${encodeURIComponent(currentLabel)}` : ""}`}
-            className="w-full flex items-center justify-center gap-2 bg-[#10b981] hover:bg-[#059669] text-black font-bold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#10b981]/25 text-lg"
+            className="w-full flex items-center justify-center gap-2 bg-[#00d4aa] hover:bg-[#00b894] text-black font-bold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#00d4aa]/25 text-lg"
           >
             <FiShoppingBag className="w-5 h-5" />
             Order Now — €{currentPrice.toFixed(2)}

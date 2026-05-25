@@ -7,8 +7,10 @@ export default function ImageProtection() {
     const preventContextMenu = (e) => {
       // Allow right-click on input fields, textareas, and specific interactive elements
       const target = e.target;
+      if (!target || !target.tagName) return;
+      
       const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true';
-      const isInteractive = target.closest('button, a, [role="button"], .interactive, .allow-context-menu');
+      const isInteractive = target.closest && target.closest('button, a, [role="button"], .interactive, .allow-context-menu');
       
       if (!isInput && !isInteractive) {
         e.preventDefault();
@@ -19,7 +21,10 @@ export default function ImageProtection() {
 
     // Prevent drag and drop globally
     const preventDragStart = (e) => {
-      if (e.target.tagName === 'IMG') {
+      const target = e.target;
+      if (!target || !target.tagName) return;
+      
+      if (target.tagName === 'IMG') {
         e.preventDefault();
         e.stopPropagation();
         return false;
@@ -28,7 +33,10 @@ export default function ImageProtection() {
 
     // Prevent text selection on images
     const preventSelect = (e) => {
-      if (e.target.tagName === 'IMG' || e.target.closest('.no-select')) {
+      const target = e.target;
+      if (!target || !target.tagName) return;
+      
+      if (target.tagName === 'IMG' || (target.closest && target.closest('.no-select'))) {
         e.preventDefault();
         e.stopPropagation();
         return false;
@@ -58,8 +66,11 @@ export default function ImageProtection() {
 
     // Prevent copy/paste on images
     const preventCopy = (e) => {
+      const target = e.target;
+      if (!target || !target.tagName) return;
+      
       const selection = window.getSelection();
-      if (selection.toString().length === 0 && e.target.tagName === 'IMG') {
+      if (selection.toString().length === 0 && target.tagName === 'IMG') {
         e.preventDefault();
         return false;
       }
@@ -74,7 +85,10 @@ export default function ImageProtection() {
 
     // Prevent opening developer tools through right-click on specific elements
     const preventDevTools = (e) => {
-      if (e.target.tagName === 'IMG' || e.target.closest('.protected')) {
+      const target = e.target;
+      if (!target || !target.tagName) return;
+      
+      if (target.tagName === 'IMG' || (target.closest && target.closest('.protected'))) {
         e.preventDefault();
         e.stopPropagation();
         return false;

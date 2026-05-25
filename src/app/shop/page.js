@@ -5,36 +5,83 @@ import ShopClient from "@/components/ShopClient";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Shop Etomidate & K-Pods — Powder, Vape Cartridges & Liquid",
+  title: "Shop Etomidate Products — Powder, K-Pods Vape & Liquid | EtomidateShop.com",
   description:
-    "Buy etomidate powder, K-Pods vape cartridges & liquid solutions. Browse all etomidate products — lab-tested ≥99.8% purity, COA certified. Multiple quantities available with discreet shipping.",
+    "Shop premium etomidate products at EtomidateShop.com. Etomidate powder, K-Pods vape cartridges & liquid solutions. Lab-tested ≥99.8% purity, COA with every order. Discreet worldwide shipping.",
   keywords: [
     "buy etomidate powder",
-    "etomidate vape for sale",
-    "buy K-Pods",
-    "K-Pods vape cartridge",
-    "K-Pods etomidate",
-    "etomidate vape cartridge",
-    "etomidate pod",
-    "etomidate liquid solution",
+    "etomidate powder for sale",
+    "etomidate vape pods for sale",
+    "buy etomidate K-Pods",
+    "etomidate K-Pods vape",
+    "etomidate vape cartridge for sale",
+    "etomidate disposable vape",
+    "buy etomidate liquid solution",
+    "etomidate liquid for sale",
+    "etomidate products online",
     "order etomidate online",
     "etomidate shop",
-    "buy etomidate vape",
-    "research chemical store",
+    "pharmaceutical grade etomidate",
+    "research grade etomidate for sale",
+    "pure etomidate 99.8%",
+    "etomidate COA certified",
+    "etomidate bulk buy",
+    "etomidate wholesale prices",
+    "discreet etomidate delivery",
+    "etomidate fast shipping",
+    "space oil",
+    "buy space oil online",
+    "space oil pods for sale",
+    "space pods buy",
+    "etomidate e-liquid for sale",
+    "etomidate flavours buy",
+    "etomidate menthol flavour",
+    "etomidate oil buy",
+    "etomidate drops for sale",
+    "etomidate nasal spray buy",
+    "etomidate oral solution buy",
+    "etomidate concentrate for sale",
+    "research chemical e-liquid",
+    "pharmaceutical e-liquid pods",
+    "33125-97-2",
+    "CAS 33125-97-2",
+    "buy 33125-97-2 online",
+    "33125-97-2 for sale",
+    "33125-97-2 powder buy",
+    "etomidate CAS 33125-97-2",
+    "etomidate CAS number",
+    "zombie vape",
+    "buy zombie vape",
+    "zombie vape pods",
+    "piao piao vape",
+    "buy piao piao vape",
+    "piao piao pods",
+    "cychlorphine HCL",
+    "cychlorphine HCL powder",
+    "buy cychlorphine HCL",
+    "cychlorphine 16145-71-4",
+    "16145-71-4",
+    "CAS 16145-71-4",
+    "buy 16145-71-4",
+    "16145-71-4 for sale",
   ],
   openGraph: {
-    title: "Shop Etomidate & K-Pods — Powder, Vape & Liquid",
+    title: "Shop Etomidate Products — Powder, K-Pods Vape & Liquid",
     description:
-      "Buy etomidate powder, K-Pods vape cartridges & liquid online. Lab-tested, COA included. Order now with discreet worldwide shipping.",
-    url: "https://buyetomidateproducts.com/shop",
+      "EtomidateShop.com — Buy etomidate powder, K-Pods vape cartridges & liquid solutions. Lab-tested ≥99.8% purity, COA included. Discreet worldwide shipping.",
+    url: "https://etomidateshop.com/shop",
   },
   alternates: {
-    canonical: "https://buyetomidateproducts.com/shop",
+    canonical: "https://etomidateshop.com/shop",
   },
 };
 
 export default async function ShopPage() {
-  await dbConnect();
+  const conn = await dbConnect();
+  
+  if (!conn) {
+    return <ShopClient products={[]} />;
+  }
   const productsRaw = await Product.find({}).lean();
   const products = productsRaw.map((p) => ({
     _id: p._id.toString(),

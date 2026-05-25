@@ -9,7 +9,7 @@ export default function ToastProvider() {
         duration: 3000,
         style: {
           background: "#1a1a1a",
-          border: "1px solid #10b981",
+          border: "1px solid #00d4aa",
           color: "#fff",
           fontSize: "14px",
           borderRadius: "12px",
@@ -21,3 +21,4 @@ export default function ToastProvider() {
     />
   );
 }
+
