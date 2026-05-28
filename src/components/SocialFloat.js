@@ -5,15 +5,8 @@ import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 
 const links = [
   {
-    label: "WhatsApp",
-    href: "https://wa.me/5125922145",
-    icon: <FaWhatsapp className="w-5 h-5" />,
-    bg: "bg-[#25D366]",
-    hover: "hover:bg-[#1fb855]",
-  },
-  {
     label: "Telegram",
-    href: "https://t.me/biggestsup",
+    href: "https://t.me/chemsolution12mal",
     icon: <FaTelegramPlane className="w-5 h-5" />,
     bg: "bg-[#0088cc]",
     hover: "hover:bg-[#0077b5]",

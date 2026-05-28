@@ -66,10 +66,6 @@ export default function Footer() {
                 <FiMail className="w-4 h-4 text-[#00d4aa] shrink-0" />
                 orders@etomidateshop.com
               </li>
-              <li className="flex items-center gap-2.5">
-                <FiPhone className="w-4 h-4 text-[#00d4aa] shrink-0" />
-                +15125922145
-              </li>
               <li className="flex items-start gap-2.5 pt-2 text-xs">
                 <FiTruck className="w-4 h-4 text-[#00d4aa] shrink-0 mt-0.5" />
                 All orders shipped within 48h via tracked, discreet packaging.
