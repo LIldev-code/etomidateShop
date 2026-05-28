@@ -59,34 +59,18 @@ export default function ContactPage() {
     {
       icon: <FiMail className="w-5 h-5" />,
       label: "Email Support",
-      value: siteSettings.contactEmail || "orders@etomidate.com",
+      value: siteSettings.contactEmail || "orders@etomidateshop.com",
       desc: "Response within 2 hours",
       color: "from-[#00d4aa]/20 to-[#00d4aa]/5",
-      href: `mailto:${siteSettings.contactEmail || "orders@etomidate.com"}`,
-    },
-    {
-      icon: <FiPhone className="w-5 h-5" />,
-      label: "Priority Line",
-      value: siteSettings.contactPhone || "+15125922145",
-      desc: "24/7 Emergency support",
-      color: "from-blue-500/20 to-blue-500/5",
-      href: `tel:${siteSettings.contactPhone || "+15125922145"}`,
-    },
-    {
-      icon: <FaWhatsapp className="w-5 h-5" />,
-      label: "WhatsApp",
-      value: "+5125922145",
-      desc: "Chat with us instantly",
-      color: "from-green-500/20 to-green-500/5",
-      href: "https://wa.me/5125922145",
+      href: `mailto:${siteSettings.contactEmail || "orders@etomidateshop.com"}`,
     },
     {
       icon: <FaTelegramPlane className="w-5 h-5" />,
       label: "Telegram",
-      value: "@biggestsup",
+      value: "@chemsolution12mal",
       desc: "Message us on Telegram",
       color: "from-sky-500/20 to-sky-500/5",
-      href: "https://t.me/biggestsup",
+      href: "https://t.me/chemsolution12mal",
     },
   ];
 
@@ -129,7 +113,7 @@ export default function ContactPage() {
 
       {/* Contact Cards */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
           {contactCards.map((card, i) => (
             <motion.a
               key={card.label}
@@ -139,7 +123,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="group relative bg-gray-50 border border-gray-100 rounded-2xl p-5 hover:border-[#00d4aa]/30 transition-all duration-300 cursor-pointer"
+              className="group relative bg-gray-50 border border-gray-100 rounded-2xl p-5 hover:border-[#00d4aa]/30 transition-all duration-300 cursor-pointer flex-1 min-w-[220px] max-w-[300px]"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${card.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               <div className="relative">
