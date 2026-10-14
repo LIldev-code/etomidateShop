@@ -17,7 +17,7 @@ const kpodProducts = [
   {
     slug: "etomidate-vape-kpod-classic",
     name: "Etomidate Vape K-Pod Classic",
-    price: 70,
+    price: 160,
     category: "vape",
     shortDescription: "The original K-Pod featuring our signature etomidate formulation in a sleek, portable design.",
     description: `The Classic K-Pod represents the foundation of our vape lineup. Each pod contains pharmaceutical-grade etomidate formulated specifically for vaporization, delivering consistent potency with every use.
@@ -36,18 +36,17 @@ Compatible with all standard K-Pod devices. Each pod is individually sealed to p
       "Batch-coded for traceability",
     ],
     sizes: [
-      { label: "10 Pods", price: 70 },
       { label: "25 Pods", price: 160 },
       { label: "50 Pods", price: 300 },
       { label: "100 Pods", price: 550 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods.jpeg",
   },
   {
     slug: "etomidate-vape-kpod-strong",
     name: "Etomidate Vape K-Pod Strong",
-    price: 70,
+    price: 160,
     category: "vape",
     shortDescription: "Enhanced potency K-Pod for experienced users seeking stronger effects.",
     description: `The Strong K-Pod delivers enhanced potency for those who require a more pronounced experience. Formulated with a higher concentration of pharmaceutical-grade etomidate while maintaining the same purity standards.
@@ -66,18 +65,17 @@ Recommended for experienced users who are familiar with etomidate effects and re
       "Enhanced quality control testing",
     ],
     sizes: [
-      { label: "10 Pods", price: 70 },
       { label: "25 Pods", price: 160 },
       { label: "50 Pods", price: 300 },
       { label: "100 Pods", price: 550 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods1.jpeg",
   },
   {
     slug: "etomidate-vape-disposable-mini",
     name: "Etomidate Vape Disposable Mini",
-    price: 70,
+    price: 160,
     category: "vape",
     shortDescription: "Single-use disposable vape pen with pre-filled etomidate, perfect for travel and convenience.",
     description: `The Disposable Mini offers ultimate convenience in a ready-to-use format. No charging, no refilling, no maintenance — simply use and dispose responsibly when finished.
@@ -96,18 +94,17 @@ Perfect for travel, sampling, or situations where carrying a separate device is 
       "Tamper-evident packaging",
     ],
     sizes: [
-      { label: "10 Units", price: 70 },
       { label: "25 Units", price: 160 },
       { label: "50 Units", price: 300 },
       { label: "100 Units", price: 550 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods2.jpeg",
   },
   {
     slug: "etomidate-vape-kpod-menthol",
     name: "Etomidate Vape K-Pod Menthol",
-    price: 70,
+    price: 160,
     category: "vape",
     shortDescription: "Refreshing menthol-infused K-Pod with cooling sensation and smooth vapor.",
     description: `The Menthol K-Pod combines our pharmaceutical-grade etomidate with premium menthol crystals for a refreshing, cooling experience. The menthol is carefully sourced and purified to pharmaceutical standards.
@@ -126,18 +123,17 @@ Popular among users who prefer a cooling, minty experience. The menthol can also
       "Cooling sensation profile",
     ],
     sizes: [
-      { label: "10 Pods", price: 70 },
       { label: "25 Pods", price: 160 },
       { label: "50 Pods", price: 300 },
       { label: "100 Pods", price: 550 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods3.jpeg",
   },
   {
     slug: "etomidate-vape-starter-kit",
     name: "Etomidate Vape Starter Kit",
-    price: 70,
+    price: 400,
     category: "vape",
     shortDescription: "Complete starter kit with premium device and sample K-Pods for new users.",
     description: `The Starter Kit is the perfect introduction to our etomidate vape products. Each kit includes a premium rechargeable device and a selection of our most popular K-Pod varieties.
@@ -156,18 +152,16 @@ Also includes a carrying case, cleaning accessories, and detailed usage instruct
       "Warranty: 90-day device warranty",
     ],
     sizes: [
-      { label: "1 Kit (with 5 Pods)", price: 400 },
-      { label: "1 Kit (with 10 Pods)", price: 550 },
-      { label: "1 Kit (with 25 Pods)", price: 900 },
-      { label: "2 Kits (with 25 Pods each)", price: 1600 },
+      { label: "1 Kit (with 25 Pods)", price: 400 },
+      { label: "2 Kits (with 25 Pods each)", price: 700 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods4.jpeg",
   },
   {
     slug: "etomidate-vape-kpod-max",
     name: "Etomidate Vape K-Pod Max",
-    price: 70,
+    price: 160,
     category: "vape",
     shortDescription: "Maximum capacity K-Pod with extended usage and premium coil technology.",
     description: `The Max K-Pod is designed for users who demand extended usage between replacements. With 2.0ml capacity — double the standard size — each pod provides twice the usage time while maintaining portability.
@@ -186,13 +180,12 @@ Despite the larger capacity, the Max maintains compatibility with all standard K
       "Optimized for extended usage cycles",
     ],
     sizes: [
-      { label: "10 Pods", price: 70 },
       { label: "25 Pods", price: 160 },
       { label: "50 Pods", price: 300 },
       { label: "100 Pods", price: 550 },
     ],
     inStock: true,
-    image: "",
+    image: "/uploads/kpods5.jpeg",
   },
 ];
 

@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { FaFlask, FaVial, FaTint, FaAppleAlt } from "react-icons/fa";
-import { FiCheckCircle, FiUser, FiMail, FiMapPin, FiMessageSquare, FiShoppingBag, FiChevronRight, FiLoader, FiArrowLeft, FiPackage, FiShield, FiTruck } from "react-icons/fi";
+import { FaFlask, FaVial, FaTint, FaAppleAlt, FaWhatsapp, FaTelegramPlane, FaBitcoin } from "react-icons/fa";
+import { FiUser, FiMapPin, FiMessageSquare, FiAtSign, FiChevronRight, FiLoader, FiArrowLeft, FiPackage, FiShield, FiTruck } from "react-icons/fi";
+
+const WHATSAPP_NUMBER = "15125922145";
+const TELEGRAM_USERNAME = "chemsolution12mal";
 
 const categoryIcons = {
   powder: <FaFlask className="w-10 h-10 text-[#00d4aa]" />,
@@ -20,9 +23,8 @@ export default function OrderPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(0);
-  const [orderPlaced, setOrderPlaced] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", address: "", message: "" });
+  const [channel, setChannel] = useState(null); // "whatsapp" | "telegram"
+  const [form, setForm] = useState({ name: "", telegramUser: "", address: "", message: "" });
 
   useEffect(() => {
     fetch("/api/products")
@@ -59,75 +61,60 @@ export default function OrderPage() {
     );
   }
 
-  const handleOrder = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product.slug,
-          productName: product.name,
-          size: product.sizes?.[selectedSize]?.label || "Standard",
-          price: product.sizes?.[selectedSize]?.price || product.price || 0,
-          customerName: form.name,
-          customerEmail: form.email,
-          shippingAddress: form.address,
-          message: form.message,
-        }),
-      });
-      if (res.ok) {
-        setOrderPlaced(true);
-        toast.success("Order placed successfully!");
-      } else {
-        toast.error("Failed to place order. Try again.");
-      }
-    } catch {
-      toast.error("Network error. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   const currentPrice = product.sizes?.[selectedSize]?.price || product.price || 0;
 
-  if (orderPlaced) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-lg w-full text-center"
-        >
-          <div className="bg-white border border-gray-200 rounded-3xl p-10 shadow-sm">
-            <div className="w-20 h-20 bg-[#00d4aa]/10 rounded-full flex items-center justify-center mx-auto mb-5">
-              <FiCheckCircle className="w-10 h-10 text-[#00d4aa]" />
-            </div>
-            <h1 className="text-2xl font-extrabold text-gray-900 mb-2">Order Confirmed!</h1>
-            <p className="text-gray-500 mb-2">
-              Thank you, <span className="font-semibold text-gray-800">{form.name}</span>.
-            </p>
-            <p className="text-gray-500 mb-6">
-              Your order for{" "}
-              <span className="font-semibold text-gray-800">
-                {product.name} — {product.sizes?.[selectedSize]?.label || "Standard"}
-              </span>{" "}
-              has been received. Payment instructions will be sent to{" "}
-              <span className="font-semibold text-gray-800">{form.email}</span>.
-            </p>
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 bg-[#00d4aa] hover:bg-[#00b894] text-black font-bold px-8 py-3 rounded-xl transition-all shadow-sm hover:shadow-md"
-            >
-              <FiShoppingBag className="w-4 h-4" />
-              Continue Shopping
-            </Link>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  const getCountry = () => {
+    // Prefer the last part of the shipping address (usually the country)
+    const parts = form.address.split(",").map((s) => s.trim()).filter(Boolean);
+    if (parts.length > 1) return parts[parts.length - 1];
+    // Fallback to browser locale region
+    try {
+      const region = (navigator.language || "").split("-")[1];
+      if (region && typeof Intl.DisplayNames === "function") {
+        const name = new Intl.DisplayNames(["en"], { type: "region" }).of(region.toUpperCase());
+        if (name) return name;
+      }
+    } catch {}
+    return "Not specified";
+  };
+
+  const buildOrderMessage = () => {
+    const size = product.sizes?.[selectedSize]?.label || "Standard";
+    return [
+      "Hello EtomidateShop team! 👋",
+      "",
+      "I'd love to place an order through your website (etomidateshop.com):",
+      "",
+      `🛍️ Product: ${product.name}`,
+      `📦 Quantity: ${size}`,
+      `💶 Total: €${currentPrice.toFixed(2)}`,
+      `💳 Payment Method: Bitcoin (BTC)`,
+      "",
+      "My details:",
+      `👤 Name: ${form.name}`,
+      channel === "telegram" ? `📱 Telegram: @${form.telegramUser.replace(/^@/, "")}` : null,
+      `📍 Shipping Address: ${form.address}`,
+      `🌍 Country: ${getCountry()}`,
+      form.message ? `💬 Note: ${form.message}` : null,
+      "",
+      "Thank you so much — looking forward to your confirmation and payment details! 🙏",
+    ].filter((line) => line !== null).join("\n");
+  };
+
+  const handleOrder = (e) => {
+    e.preventDefault();
+    const message = buildOrderMessage();
+    if (channel === "whatsapp") {
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+      toast.success("Opening WhatsApp — send the message to confirm your order!");
+    } else {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(message).catch(() => {});
+      }
+      window.open(`https://t.me/${TELEGRAM_USERNAME}`, "_blank", "noopener,noreferrer");
+      toast.success("Opening Telegram — order details copied, just paste them in the chat!");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -218,6 +205,59 @@ export default function OrderPage() {
             </h3>
 
             <form onSubmit={handleOrder} className="space-y-4">
+              {/* Payment method notice */}
+              <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                <FaBitcoin className="w-6 h-6 text-[#f7931a] shrink-0" />
+                <p className="text-xs text-amber-800">
+                  <span className="font-bold">We accept Bitcoin (BTC) only.</span>{" "}
+                  Our wallet address and payment instructions will be shared in the chat after you send your order.
+                </p>
+              </div>
+
+              {/* Step 1 — choose channel */}
+              <div className="grid sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setChannel("whatsapp")}
+                  className={`flex items-center justify-center gap-2 bg-[#25d366] text-white font-bold py-4 rounded-xl transition-all text-base ${
+                    channel === "whatsapp"
+                      ? "ring-2 ring-offset-2 ring-[#25d366] shadow-lg shadow-[#25d366]/30 scale-[1.02]"
+                      : channel
+                        ? "opacity-60 hover:opacity-90"
+                        : "hover:bg-[#1ebe5d] hover:shadow-lg hover:shadow-[#25d366]/25"
+                  }`}
+                >
+                  <FaWhatsapp className="w-5 h-5" />
+                  Order via WhatsApp
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChannel("telegram")}
+                  className={`flex items-center justify-center gap-2 bg-[#0088cc] text-white font-bold py-4 rounded-xl transition-all text-base ${
+                    channel === "telegram"
+                      ? "ring-2 ring-offset-2 ring-[#0088cc] shadow-lg shadow-[#0088cc]/30 scale-[1.02]"
+                      : channel
+                        ? "opacity-60 hover:opacity-90"
+                        : "hover:bg-[#0077b5] hover:shadow-lg hover:shadow-[#0088cc]/25"
+                  }`}
+                >
+                  <FaTelegramPlane className="w-5 h-5" />
+                  Order via Telegram
+                </button>
+              </div>
+
+              {!channel ? (
+                <p className="text-sm text-gray-500 text-center bg-[#00d4aa]/5 border border-[#00d4aa]/20 rounded-xl px-4 py-3">
+                  Choose WhatsApp or Telegram above — each option has its own requirements.
+                </p>
+              ) : (
+              <>
+              <p className="text-xs text-gray-500 text-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                {channel === "whatsapp"
+                  ? "We need your name and shipping address — your order opens in WhatsApp ready to send."
+                  : "Telegram orders need your @username so we can reply — order details get copied for you to paste."}
+              </p>
+
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Full Name</label>
                 <div className="relative">
@@ -233,20 +273,22 @@ export default function OrderPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
-                <div className="relative">
-                  <FiMail className="absolute left-3.5 top-3 w-4 h-4 text-gray-400" />
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent placeholder:text-gray-400"
-                  />
+              {channel === "telegram" && (
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Telegram Username</label>
+                  <div className="relative">
+                    <FiAtSign className="absolute left-3.5 top-3 w-4 h-4 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="@yourusername"
+                      required
+                      value={form.telegramUser}
+                      onChange={(e) => setForm({ ...form, telegramUser: e.target.value })}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:border-transparent placeholder:text-gray-400"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Shipping Address</label>
@@ -279,26 +321,26 @@ export default function OrderPage() {
 
               <button
                 type="submit"
-                disabled={submitting}
-                className="w-full flex items-center justify-center gap-2 bg-[#00d4aa] hover:bg-[#00b894] disabled:opacity-60 text-black font-bold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#00d4aa]/25 mt-2 text-base"
+                className={`w-full flex items-center justify-center gap-2 text-white font-bold py-4 rounded-xl transition-all text-base mt-2 ${
+                  channel === "whatsapp"
+                    ? "bg-[#25d366] hover:bg-[#1ebe5d] hover:shadow-lg hover:shadow-[#25d366]/25"
+                    : "bg-[#0088cc] hover:bg-[#0077b5] hover:shadow-lg hover:shadow-[#0088cc]/25"
+                }`}
               >
-                {submitting ? (
-                  <FiLoader className="w-5 h-5 animate-spin" />
-                ) : (
-                  <FiShoppingBag className="w-5 h-5" />
-                )}
-                {submitting ? "Placing Order..." : `Place Order — €${currentPrice.toFixed(2)}`}
+                {channel === "whatsapp" ? <FaWhatsapp className="w-5 h-5" /> : <FaTelegramPlane className="w-5 h-5" />}
+                {channel === "whatsapp"
+                  ? `Send Order on WhatsApp — €${currentPrice.toFixed(2)}`
+                  : `Send Order on Telegram — €${currentPrice.toFixed(2)}`}
               </button>
-
-              <p className="text-xs text-gray-400 text-center">
-                Payment instructions will be sent to your email after confirmation.
-              </p>
+              </>
+              )}
             </form>
           </div>
 
           {/* Trust badges */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
+              { icon: FaBitcoin, label: "BTC Payments" },
               { icon: FiShield, label: "Secure Order" },
               { icon: FiTruck, label: "Discreet Shipping" },
               { icon: FiPackage, label: "COA Included" },

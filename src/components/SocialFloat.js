@@ -18,6 +18,13 @@ const links = [
     bg: "bg-[#00d4aa]",
     hover: "hover:bg-[#00b894]",
   },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/15125922145",
+    icon: <FaWhatsapp className="w-5 h-5" />,
+    bg: "bg-[#25d366]",
+    hover: "hover:bg-[#1ebe5d]",
+  },
 ];
 
 export default function SocialFloat() {
