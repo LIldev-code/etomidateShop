@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { HiOutlineBeaker, HiOutlineShieldCheck } from "react-icons/hi";
 import { BsBoxSeam, BsPeople } from "react-icons/bs";
@@ -130,12 +131,12 @@ export default function AboutClient({ aboutText }) {
           className="mt-16 text-center"
         >
           <p className="text-gray-600 mb-6">Ready to experience the EtomidateShop difference?</p>
-          <a
+          <Link
             href="/shop"
             className="inline-flex items-center gap-2 bg-[#00d4aa] hover:bg-[#00b894] text-black font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#00d4aa]/25"
           >
             Browse Our Collection
-          </a>
+          </Link>
         </motion.div>
       </div>
     </div>

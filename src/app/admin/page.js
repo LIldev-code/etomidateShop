@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
@@ -140,10 +141,10 @@ export default function AdminDashboard() {
                 <span className="text-gray-900 capitalize font-medium">{tab}</span>
               </div>
             </div>
-            <a href="/" target="_blank" className="flex items-center gap-2 text-xs text-gray-600 hover:text-[#00d4aa] hover:bg-[#00d4aa]/5 px-3 py-2 rounded-xl transition-all duration-200">
+            <Link href="/" target="_blank" className="flex items-center gap-2 text-xs text-gray-600 hover:text-[#00d4aa] hover:bg-[#00d4aa]/5 px-3 py-2 rounded-xl transition-all duration-200">
               <FiEye className="w-3.5 h-3.5" />
               View Site
-            </a>
+            </Link>
           </div>
         </header>
 
