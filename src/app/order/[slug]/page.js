@@ -108,17 +108,13 @@ export default function OrderPage() {
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
       toast.success("Opening WhatsApp — send the message to confirm your order!");
     } else {
-      // Telegram has no direct text param for user chats — use share link so the
-      // message is pre-filled, and keep clipboard copy as a fallback.
+      // Telegram does not allow pre-filled text in user chat links — open the
+      // chat directly and copy the order so the user can paste and send.
       if (navigator.clipboard) {
         navigator.clipboard.writeText(message).catch(() => {});
       }
-      window.open(
-        `https://t.me/share/url?url=${encodeURIComponent("https://etomidateshop.com")}&text=${encodeURIComponent(message)}`,
-        "_blank",
-        "noopener,noreferrer"
-      );
-      toast.success(`Opening Telegram — your order is pre-filled, just select @${TELEGRAM_USERNAME} and send!`);
+      window.open(`https://t.me/${TELEGRAM_USERNAME}`, "_blank", "noopener,noreferrer");
+      toast.success("Opening Telegram — your order is copied! Just paste (Ctrl+V) in the chat and send.", { duration: 6000 });
     }
   };
 
@@ -261,7 +257,7 @@ export default function OrderPage() {
               <p className="text-xs text-gray-500 text-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                 {channel === "whatsapp"
                   ? "We need your name and shipping address — your order opens in WhatsApp ready to send."
-                  : "Telegram orders need your @username so we can reply — your order comes pre-filled, just pick our chat and send."}
+                  : "Telegram orders need your @username so we can reply — our chat opens with your order copied, just paste and send."}
               </p>
 
               <div>
@@ -338,21 +334,6 @@ export default function OrderPage() {
                   ? `Send Order on WhatsApp — €${currentPrice.toFixed(2)}`
                   : `Send Order on Telegram — €${currentPrice.toFixed(2)}`}
               </button>
-
-              {channel === "telegram" && (
-                <p className="text-center text-xs text-gray-400">
-                  Can&apos;t find our chat in the share list?{" "}
-                  <a
-                    href={`https://t.me/${TELEGRAM_USERNAME}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0088cc] font-semibold hover:underline"
-                  >
-                    Open @{TELEGRAM_USERNAME} directly
-                  </a>
-                  {" "}(details are already copied — just paste)
-                </p>
-              )}
               </>
               )}
             </form>
