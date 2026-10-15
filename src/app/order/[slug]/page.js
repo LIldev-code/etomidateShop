@@ -338,6 +338,21 @@ export default function OrderPage() {
                   ? `Send Order on WhatsApp — €${currentPrice.toFixed(2)}`
                   : `Send Order on Telegram — €${currentPrice.toFixed(2)}`}
               </button>
+
+              {channel === "telegram" && (
+                <p className="text-center text-xs text-gray-400">
+                  Can&apos;t find our chat in the share list?{" "}
+                  <a
+                    href={`https://t.me/${TELEGRAM_USERNAME}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0088cc] font-semibold hover:underline"
+                  >
+                    Open @{TELEGRAM_USERNAME} directly
+                  </a>
+                  {" "}(details are already copied — just paste)
+                </p>
+              )}
               </>
               )}
             </form>
