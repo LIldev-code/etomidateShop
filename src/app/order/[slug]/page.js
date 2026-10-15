@@ -108,11 +108,17 @@ export default function OrderPage() {
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
       toast.success("Opening WhatsApp — send the message to confirm your order!");
     } else {
+      // Telegram has no direct text param for user chats — use share link so the
+      // message is pre-filled, and keep clipboard copy as a fallback.
       if (navigator.clipboard) {
         navigator.clipboard.writeText(message).catch(() => {});
       }
-      window.open(`https://t.me/${TELEGRAM_USERNAME}`, "_blank", "noopener,noreferrer");
-      toast.success("Opening Telegram — order details copied, just paste them in the chat!");
+      window.open(
+        `https://t.me/share/url?url=${encodeURIComponent("https://etomidateshop.com")}&text=${encodeURIComponent(message)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+      toast.success(`Opening Telegram — your order is pre-filled, just select @${TELEGRAM_USERNAME} and send!`);
     }
   };
 
@@ -255,7 +261,7 @@ export default function OrderPage() {
               <p className="text-xs text-gray-500 text-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                 {channel === "whatsapp"
                   ? "We need your name and shipping address — your order opens in WhatsApp ready to send."
-                  : "Telegram orders need your @username so we can reply — order details get copied for you to paste."}
+                  : "Telegram orders need your @username so we can reply — your order comes pre-filled, just pick our chat and send."}
               </p>
 
               <div>
